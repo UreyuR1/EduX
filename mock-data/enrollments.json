@@ -1,0 +1,25 @@
+[
+  { "studentId": "student-1",  "courseId": "course-1" },
+  { "studentId": "student-2",  "courseId": "course-1" },
+  { "studentId": "student-3",  "courseId": "course-1" },
+  { "studentId": "student-4",  "courseId": "course-1" },
+  { "studentId": "student-5",  "courseId": "course-1" },
+  { "studentId": "student-6",  "courseId": "course-1" },
+  { "studentId": "student-7",  "courseId": "course-1" },
+  { "studentId": "student-8",  "courseId": "course-1" },
+
+  { "studentId": "student-1",  "courseId": "course-2" },
+  { "studentId": "student-2",  "courseId": "course-2" },
+  { "studentId": "student-3",  "courseId": "course-2" },
+  { "studentId": "student-5",  "courseId": "course-2" },
+  { "studentId": "student-6",  "courseId": "course-2" },
+  { "studentId": "student-9",  "courseId": "course-2" },
+  { "studentId": "student-11", "courseId": "course-2" },
+
+  { "studentId": "student-4",  "courseId": "course-3" },
+  { "studentId": "student-7",  "courseId": "course-3" },
+  { "studentId": "student-8",  "courseId": "course-3" },
+  { "studentId": "student-9",  "courseId": "course-3" },
+  { "studentId": "student-10", "courseId": "course-3" },
+  { "studentId": "student-12", "courseId": "course-3" }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "courseId": "course-1",
+    "weekNumber": 6,
+    "topic": "Fraction Division",
+    "activity": "This week we're learning how to divide fractions. Try this at home: Ask your child to help you divide a pizza equally among family members. If you have 3/4 of a pizza left and 3 people to share it, how much does each person get? Use paper plates to cut and visualise the fractions!",
+    "source": "auto"
+  },
+  {
+    "courseId": "course-2",
+    "weekNumber": 6,
+    "topic": "Persuasive Writing",
+    "activity": "This week we're exploring persuasive writing techniques. Try this at home: Challenge your child to write a short letter convincing you why they should get to choose dinner tonight. Encourage them to use at least 3 reasons and persuasive words like 'furthermore', 'importantly', and 'therefore'.",
+    "source": "auto"
+  },
+  {
+    "courseId": "course-3",
+    "weekNumber": 6,
+    "topic": "Earth's Place in Space",
+    "activity": "This week we're exploring Earth's position in the solar system and how it affects seasons and day/night cycles. Try this at home: Use a torch (the Sun) and an orange (Earth) in a dark room. Tilt the orange slightly and rotate it to show your child how Earth's tilt creates seasons. Ask them to explain which part would be summer and which would be winter!",
+    "source": "auto"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  { "id": "student-1",  "name": "Li Junjie",        "parentId": "parent-1"  },
+  { "id": "student-2",  "name": "Oliver Thompson",   "parentId": "parent-2"  },
+  { "id": "student-3",  "name": "Arjun Sharma",      "parentId": "parent-3"  },
+  { "id": "student-4",  "name": "Liam O'Brien",      "parentId": "parent-4"  },
+  { "id": "student-5",  "name": "Zhang Yiyi",        "parentId": "parent-5"  },
+  { "id": "student-6",  "name": "Ruby Williams",     "parentId": "parent-6"  },
+  { "id": "student-7",  "name": "Ethan Kim",         "parentId": "parent-7"  },
+  { "id": "student-8",  "name": "Aisha Al-Hassan",   "parentId": "parent-8"  },
+  { "id": "student-9",  "name": "Jack Baker",        "parentId": "parent-9"  },
+  { "id": "student-10", "name": "Chen Hao",          "parentId": "parent-10" },
+  { "id": "student-11", "name": "Sophie Thompson",   "parentId": "parent-2"  },
+  { "id": "student-12", "name": "Ravi Sharma",       "parentId": "parent-3"  }
+]

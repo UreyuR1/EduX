@@ -1,0 +1,32 @@
+[
+  {
+    "id": "course-1",
+    "name": "Year 5 Mathematics",
+    "yearLevel": "Year 5",
+    "subject": "Mathematics",
+    "currentWeek": 6,
+    "totalWeeks": 10,
+    "teacherId": "teacher-1",
+    "syllabusFile": "year5-maths.md"
+  },
+  {
+    "id": "course-2",
+    "name": "Year 5 English",
+    "yearLevel": "Year 5",
+    "subject": "English",
+    "currentWeek": 6,
+    "totalWeeks": 10,
+    "teacherId": "teacher-1",
+    "syllabusFile": "year5-english.md"
+  },
+  {
+    "id": "course-3",
+    "name": "Year 6 Science",
+    "yearLevel": "Year 6",
+    "subject": "Science",
+    "currentWeek": 6,
+    "totalWeeks": 10,
+    "teacherId": "teacher-2",
+    "syllabusFile": "year6-science.md"
+  }
+]

@@ -1,0 +1,25 @@
+[
+  { "studentId": "student-1",  "courseId": "course-1", "label": "Progressing well", "details": "Shows strong understanding of number patterns" },
+  { "studentId": "student-2",  "courseId": "course-1", "label": "Progressing well", "details": null },
+  { "studentId": "student-3",  "courseId": "course-1", "label": "May benefit from extra attention: fractions", "details": "Struggles with equivalent fractions and fraction division" },
+  { "studentId": "student-4",  "courseId": "course-1", "label": "May benefit from extra attention: fractions", "details": "Finds word problems involving fractions challenging" },
+  { "studentId": "student-5",  "courseId": "course-1", "label": "Progressing well", "details": "Excellent problem-solving skills" },
+  { "studentId": "student-6",  "courseId": "course-1", "label": "Progressing steadily", "details": null },
+  { "studentId": "student-7",  "courseId": "course-1", "label": "Progressing well", "details": null },
+  { "studentId": "student-8",  "courseId": "course-1", "label": "May benefit from extra attention: word problems", "details": "Good computational skills but finds word problems difficult" },
+
+  { "studentId": "student-1",  "courseId": "course-2", "label": "Progressing steadily", "details": "Writing improving, needs more reading practice" },
+  { "studentId": "student-2",  "courseId": "course-2", "label": "Progressing well", "details": "Strong reader, creative writer" },
+  { "studentId": "student-3",  "courseId": "course-2", "label": "May benefit from extra attention: reading comprehension", "details": "Finds inference questions difficult" },
+  { "studentId": "student-5",  "courseId": "course-2", "label": "Progressing well", "details": null },
+  { "studentId": "student-6",  "courseId": "course-2", "label": "Progressing well", "details": "Loves creative writing" },
+  { "studentId": "student-9",  "courseId": "course-2", "label": "Progressing steadily", "details": null },
+  { "studentId": "student-11", "courseId": "course-2", "label": "Progressing well", "details": null },
+
+  { "studentId": "student-4",  "courseId": "course-3", "label": "Progressing well", "details": "Very engaged with hands-on experiments" },
+  { "studentId": "student-7",  "courseId": "course-3", "label": "Progressing steadily", "details": null },
+  { "studentId": "student-8",  "courseId": "course-3", "label": "Progressing well", "details": null },
+  { "studentId": "student-9",  "courseId": "course-3", "label": "May benefit from extra attention: scientific reports", "details": "Finds writing up experiment results challenging" },
+  { "studentId": "student-10", "courseId": "course-3", "label": "Progressing well", "details": null },
+  { "studentId": "student-12", "courseId": "course-3", "label": "Progressing steadily", "details": null }
+]
