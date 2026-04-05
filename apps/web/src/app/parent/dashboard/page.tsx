@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
+import { useResizablePanel } from "@/hooks/useResizablePanel";
 import { CourseCard } from "@/components/parent/CourseCard";
 import { WeeklyFocus } from "@/components/parent/WeeklyFocus";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -85,6 +86,8 @@ export default function ParentDashboard() {
     };
   }, []);
 
+  const { chatWidth, onMouseDown } = useResizablePanel({ defaultWidth: 400, minWidth: 400, maxRatio: 0.5 });
+
   const placeholder = useMemo(
     () => language === "zh" ? "询问有关孩子学习的问题..." : "Ask about your child's learning...",
     [language]
@@ -156,11 +159,24 @@ export default function ParentDashboard() {
         )}
       </div>
 
-      {/* ── Divider ── */}
-      <div className="w-px bg-border shrink-0" />
+      {/* ── Drag handle ── */}
+      <div
+        onMouseDown={onMouseDown}
+        className="w-1.5 shrink-0 cursor-col-resize bg-border hover:bg-primary/40 transition-colors group relative"
+        title="Drag to resize"
+      >
+        {/* Visual grip dots */}
+        <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-center pointer-events-none">
+          <div className="flex flex-col gap-1 opacity-40 group-hover:opacity-80 transition-opacity">
+            {[0,1,2,3,4].map((i) => (
+              <div key={i} className="w-1 h-1 rounded-full bg-primary" />
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* ── Right: Chat ── */}
-      <div className="w-[400px] shrink-0 flex flex-col bg-card">
+      <div className="shrink-0 flex flex-col bg-card" style={{ width: chatWidth }}>
         {/* Chat panel header */}
         <div className="px-4 py-3 border-b bg-primary/8 shrink-0">
           <p className="text-sm font-semibold text-primary">
