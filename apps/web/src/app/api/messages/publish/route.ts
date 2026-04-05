@@ -9,8 +9,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "courseId and content required" }, { status: 400 });
   }
 
-  // Extract a short topic from first sentence of the message
-  const firstSentence = content.split(/[.\n]/)[0]?.trim() ?? "Teacher Update";
+  // Extract topic: skip greeting lines (Dear/Hi/Hello), take first substantive sentence
+  const lines = content.split("\n").map((l) => l.trim()).filter(Boolean);
+  const greetingPattern = /^(dear|hi|hello|g'day)/i;
+  const substantiveLine = lines.find((l) => !greetingPattern.test(l)) ?? lines[0] ?? "Teacher Update";
+  const firstSentence = substantiveLine.split(/[.!?]/)[0]?.trim() ?? substantiveLine;
   const topic = firstSentence.length > 80 ? firstSentence.slice(0, 77) + "…" : firstSentence;
 
   publishedMessages.set(courseId, {

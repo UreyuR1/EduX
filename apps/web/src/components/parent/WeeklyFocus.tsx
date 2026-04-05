@@ -18,21 +18,25 @@ export function WeeklyFocus({ focus, courseName }: WeeklyFocusProps) {
             <span>🎯</span>
             This Week&apos;s Learning Focus
           </CardTitle>
-          <Badge variant="outline" className="text-xs">
-            Week {focus.weekNumber}
-          </Badge>
+          {focus.weekNumber > 0 && (
+            <Badge variant="outline" className="text-xs">
+              Week {focus.weekNumber}
+            </Badge>
+          )}
         </div>
         <p className="text-sm text-muted-foreground">{courseName}</p>
       </CardHeader>
       <CardContent>
         <div className="space-y-2">
-          <p className="font-medium text-sm">Topic: {focus.topic}</p>
-          <p className="text-sm text-muted-foreground leading-relaxed">
+          {focus.source !== "teacher" && (
+            <p className="font-medium text-sm">Topic: {focus.topic}</p>
+          )}
+          <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
             {focus.activity}
           </p>
           {focus.source === "teacher" && (
-            <Badge variant="secondary" className="text-xs mt-2">
-              From your teacher
+            <Badge variant="secondary" className="text-xs mt-2 bg-primary/10 text-primary border-primary/20">
+              ✉ Message from your teacher
             </Badge>
           )}
         </div>
