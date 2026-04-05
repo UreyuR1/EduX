@@ -42,16 +42,17 @@ export function Header({ showLanguageToggle, language, onLanguageChange }: Heade
     const newUser = setCurrentUser(userId);
     if (newUser) {
       setUser(newUser);
+      window.dispatchEvent(new CustomEvent("edux-user-changed", { detail: newUser }));
       const path = newUser.role === "TEACHER" ? "/teacher/dashboard" : "/parent/dashboard";
       router.push(path);
     }
   };
 
   return (
-    <header className="h-14 border-b flex items-center justify-between px-6 bg-background shrink-0">
+    <header className="h-14 border-b flex items-center justify-between px-6 bg-card shrink-0 shadow-sm">
       <div className="flex items-center gap-3">
         <span
-          className="font-bold text-lg tracking-tight cursor-pointer"
+          className="font-bold text-lg tracking-tight cursor-pointer text-primary"
           onClick={() => router.push("/")}
         >
           EduX

@@ -68,7 +68,7 @@ export function FeedbackOverview({ aggregate }: FeedbackOverviewProps) {
         {/* Top difficulty tags */}
         {aggregate.topTags.length > 0 && (
           <div className="space-y-2">
-            <p className="text-sm text-muted-foreground">Common difficulty topics</p>
+            <p className="text-sm text-muted-foreground">Common difficulty topics (from negative/neutral feedback)</p>
             <div className="space-y-1.5">
               {aggregate.topTags.slice(0, 5).map(({ tag, count }) => {
                 const pct = total > 0 ? Math.round((count / total) * 100) : 0;

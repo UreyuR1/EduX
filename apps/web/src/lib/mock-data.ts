@@ -242,9 +242,9 @@ export function getFeedbackAggregate(courseId: string) {
   const completionRate =
     completionFeedback.length > 0 ? doneCount / completionFeedback.length : 0;
 
-  // Tag frequency
+  // Tag frequency — only count tags from negative/neutral feedback to surface difficulty topics
   const tagCounts: Record<string, number> = {};
-  for (const f of feedback) {
+  for (const f of feedback.filter((f) => f.sentiment !== "positive")) {
     for (const tag of f.tags) {
       tagCounts[tag] = (tagCounts[tag] || 0) + 1;
     }
