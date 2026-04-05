@@ -5,6 +5,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { FeedbackOverview } from "@/components/teacher/FeedbackOverview";
 import { InsightCard } from "@/components/teacher/InsightCard";
 import { AttentionList } from "@/components/teacher/AttentionList";
+import { MessageComposer } from "@/components/teacher/MessageComposer";
 import { getCurrentUser } from "@/lib/auth";
 import type { Course, FeedbackAggregate, Insight, StudentAttention } from "@/lib/types";
 
@@ -15,6 +16,7 @@ export default function TeacherDashboard() {
   const [insights, setInsights] = useState<Insight[]>([]);
   const [attentionStudents, setAttentionStudents] = useState<StudentAttention[]>([]);
   const [loading, setLoading] = useState(true);
+  const [composingInsight, setComposingInsight] = useState<Insight | null>(null);
 
   // Load courses for current teacher
   useEffect(() => {
@@ -104,7 +106,11 @@ export default function TeacherDashboard() {
                   <h2 className="text-base font-semibold mb-3">AI Insights</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                     {insights.map((insight) => (
-                      <InsightCard key={insight.id} insight={insight} />
+                      <InsightCard
+                        key={insight.id}
+                        insight={insight}
+                        onDraftMessage={setComposingInsight}
+                      />
                     ))}
                   </div>
                 </div>
@@ -113,6 +119,13 @@ export default function TeacherDashboard() {
           </TabsContent>
         ))}
       </Tabs>
+
+      <MessageComposer
+        insight={composingInsight}
+        courseId={selectedCourseId ?? ""}
+        courseName={courses.find((c) => c.id === selectedCourseId)?.name ?? ""}
+        onClose={() => setComposingInsight(null)}
+      />
     </div>
   );
 }

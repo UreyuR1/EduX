@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { getCourses, getWeeklyFocus } from "@/lib/mock-data";
+import { getCourses, getWeeklyFocus, getFeedbackAggregate, getInsightsForCourse } from "@/lib/mock-data";
 
 const AI_SERVICE_URL = process.env.AI_SERVICE_URL || "http://localhost:8000";
 
@@ -49,26 +49,65 @@ async function handleDirectLLM(
 
   // Build context from mock data
   let context = "";
-  console.error("[CHAT DEBUG] courseId =", JSON.stringify(courseId));
   if (courseId) {
     try {
       const course = getCourses().find((c) => c.id === courseId);
-      const focus = getWeeklyFocus(courseId);
-      if (course) {
-        context = `Course: ${course.name} (${course.yearLevel})\nTeacher: ${course.teacherName}\nWeek ${course.currentWeek} of ${course.totalWeeks}\n\nSyllabus:\n${course.syllabusPlain.slice(0, 3000)}`;
-        if (focus) {
-          context += `\n\nThis week's focus: ${focus.topic}\nActivity: ${focus.activity}`;
+      if (chatType === "teacher") {
+        // Teacher context: aggregated feedback + insights
+        const aggregate = getFeedbackAggregate(courseId);
+        const insights = getInsightsForCourse(courseId);
+        if (course && aggregate) {
+          const completionPct = Math.round(aggregate.completionRate * 100);
+          const topTagsStr = aggregate.topTags
+            .slice(0, 5)
+            .map(({ tag, count }) => `  - ${tag}: ${count} parents`)
+            .join("\n");
+          const sentDist = aggregate.sentimentDistribution;
+          const newInsights = insights.filter((i) => i.status === "NEW");
+          const insightsStr = newInsights
+            .map((i) => `  • [${i.status}] ${i.dataPoint} → ${i.therefore} → Suggestion: ${i.suggestion}`)
+            .join("\n");
+
+          context = `Course: ${course.name} (${course.yearLevel}) — Week ${course.currentWeek}/${course.totalWeeks}
+
+PARENT FEEDBACK SUMMARY:
+- Homework completion rate: ${completionPct}%
+- Sentiment: ${sentDist.positive} positive, ${sentDist.neutral} neutral, ${sentDist.negative} needs support
+- Top difficulty topics:\n${topTagsStr || "  (none reported)"}
+
+AI INSIGHTS (${newInsights.length} unactioned):
+${insightsStr || "  (no new insights)"}`;
+        }
+      } else {
+        // Parent context: syllabus + weekly focus
+        const focus = getWeeklyFocus(courseId);
+        if (course) {
+          context = `Course: ${course.name} (${course.yearLevel})\nTeacher: ${course.teacherName}\nWeek ${course.currentWeek} of ${course.totalWeeks}\n\nSyllabus:\n${course.syllabusPlain.slice(0, 3000)}`;
+          if (focus) {
+            context += `\n\nThis week's focus: ${focus.topic}\nActivity: ${focus.activity}`;
+          }
         }
       }
     } catch (err) {
       console.error("Failed to load course context:", err);
     }
   }
-  console.error("[CHAT DEBUG] context length =", context.length);
 
   const systemPrompt =
     chatType === "teacher"
-      ? `You are a Data Analysis Assistant for teachers. Be concise, professional, and action-oriented. Present information in "data → therefore → suggestion" format. Never expose individual parent conversations verbatim. Use supportive language.`
+      ? `You are a Data Analysis Assistant for Ms. Sarah Chen / Mr. James Nguyen at Riverside Primary School.
+You have access to aggregated parent feedback and AI insights for the selected course.
+
+RULES:
+- Present analysis in "Data → Therefore → Suggestion" format
+- Never expose individual parent identities or verbatim messages
+- Be concise and action-oriented (bullet points preferred)
+- When asked to draft a parent message, write a warm, professional note under 150 words
+- Suggest specific classroom adjustments when relevant
+
+COURSE DATA:
+${context || "No course data available yet."}
+`
       : `You are a friendly Learning Advisor for parents at Riverside Primary School. You have FULL ACCESS to the child's course syllabus and weekly learning plan below. Use this information to answer the parent's questions accurately.
 
 IMPORTANT RULES:
@@ -88,8 +127,8 @@ ${context || "No course data is currently available. Let the parent know you don
     { role: "system", content: systemPrompt },
   ];
 
-  // Inject context as a separate user→assistant exchange so models treat it as established facts
-  if (context) {
+  // Inject context as a separate user→assistant exchange so proxy models treat it as established facts
+  if (context && chatType !== "teacher") {
     messages.push(
       { role: "user", content: "[System: The following is the child's course data. Use it to answer all questions.]" },
       { role: "assistant", content: `I have the following course data:\n\n${context}\n\nI'll use this information to answer your questions about your child's learning.` }

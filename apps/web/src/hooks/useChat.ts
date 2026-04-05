@@ -8,14 +8,23 @@ interface UseChatOptions {
   courseId?: string;
   studentId?: string;
   language?: string;
+  chatType?: string;
 }
 
-export function useChat({ endpoint, courseId, studentId, language = "en" }: UseChatOptions) {
+export function useChat({ endpoint, courseId, studentId, language = "en", chatType = "parent" }: UseChatOptions) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [streamingContent, setStreamingContent] = useState("");
   const abortRef = useRef<AbortController | null>(null);
   const messageCountRef = useRef(0);
+
+  const resetMessages = useCallback((initialMessages: ChatMessage[] = []) => {
+    abortRef.current?.abort();
+    setMessages(initialMessages);
+    setStreamingContent("");
+    setIsLoading(false);
+    messageCountRef.current = 0;
+  }, []);
 
   const sendMessage = useCallback(
     async (content: string) => {
@@ -51,6 +60,7 @@ export function useChat({ endpoint, courseId, studentId, language = "en" }: UseC
             student_id: studentId,
             language,
             history,
+            chat_type: chatType,
           }),
           signal: controller.signal,
         });
@@ -144,6 +154,7 @@ export function useChat({ endpoint, courseId, studentId, language = "en" }: UseC
     isLoading,
     streamingContent,
     sendMessage,
+    resetMessages,
     exchangeCount,
   };
 }
