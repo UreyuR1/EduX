@@ -24,9 +24,11 @@ class LLMClient(ABC):
 
 class AnthropicClient(LLMClient):
     def __init__(self):
-        self.client = anthropic.AsyncAnthropic(
-            api_key=os.getenv("ANTHROPIC_API_KEY"),
-        )
+        base_url = os.getenv("ANTHROPIC_BASE_URL")
+        kwargs: dict = {"api_key": os.getenv("ANTHROPIC_API_KEY")}
+        if base_url:
+            kwargs["base_url"] = base_url
+        self.client = anthropic.AsyncAnthropic(**kwargs)
         self.model = os.getenv("ANTHROPIC_MODEL", "claude-haiku-4-5-20250401")
 
     async def chat(self, system: str, messages: list[dict]) -> str:

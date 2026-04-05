@@ -10,8 +10,17 @@ interface MessageBubbleProps {
   isStreaming?: boolean;
 }
 
+// Strip model thinking artifacts: lines like "> 思考中..." or "> Thinking..."
+function filterThinking(text: string): string {
+  return text
+    .replace(/^>\s*(思考中|Thinking|思考)[^\n]*\n?/gim, "")
+    .replace(/^\s*\n/, "") // remove leading blank lines after stripping
+    .trimStart();
+}
+
 export function MessageBubble({ role, content, avatar, isStreaming }: MessageBubbleProps) {
   const isUser = role === "user";
+  const displayContent = isUser ? content : filterThinking(content);
 
   return (
     <div className={cn("flex gap-3 py-3", isUser ? "flex-row-reverse" : "flex-row")}>
@@ -31,7 +40,7 @@ export function MessageBubble({ role, content, avatar, isStreaming }: MessageBub
         )}
       >
         <div className="whitespace-pre-wrap break-words">
-          {content}
+          {displayContent}
           {isStreaming && (
             <span className="inline-block w-1.5 h-4 ml-0.5 bg-current animate-pulse" />
           )}

@@ -72,8 +72,8 @@ export function useChat({ endpoint, courseId, studentId, language = "en" }: UseC
 
           for (const line of lines) {
             if (line.startsWith("data: ")) {
-              const data = line.slice(6).trim();
-              if (data === "[DONE]") {
+              const raw = line.slice(6).trim();
+              if (raw === "[DONE]") {
                 // Finalize: move streaming content to messages
                 setMessages((prev) => [
                   ...prev,
@@ -88,8 +88,18 @@ export function useChat({ endpoint, courseId, studentId, language = "en" }: UseC
                 setIsLoading(false);
                 return;
               }
-              accumulated += data;
-              setStreamingContent(accumulated);
+              // Chunks are JSON-encoded strings to preserve spaces/newlines
+              try {
+                const chunk = JSON.parse(raw);
+                if (typeof chunk === "string") {
+                  accumulated += chunk;
+                  setStreamingContent(accumulated);
+                }
+              } catch {
+                // Fallback: treat as plain text (e.g. from FastAPI proxy)
+                accumulated += raw;
+                setStreamingContent(accumulated);
+              }
             }
           }
         }

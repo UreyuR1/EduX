@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -87,33 +88,39 @@ export function Header({ showLanguageToggle, language, onLanguageChange }: Heade
             <span className="text-sm hidden sm:inline">{user.name}</span>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuLabel>Switch User</DropdownMenuLabel>
+            <DropdownMenuGroup>
+              <DropdownMenuLabel>Switch User</DropdownMenuLabel>
+            </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuLabel className="text-xs text-muted-foreground font-normal">
-              Teachers
-            </DropdownMenuLabel>
-            {MOCK_USERS.filter((u) => u.role === "TEACHER").map((u) => (
-              <DropdownMenuItem
-                key={u.id}
-                onClick={() => handleUserSwitch(u.id)}
-                className={u.id === user.id ? "bg-accent" : ""}
-              >
-                {u.name}
-              </DropdownMenuItem>
-            ))}
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="text-xs text-muted-foreground font-normal">
+                Teachers
+              </DropdownMenuLabel>
+              {MOCK_USERS.filter((u) => u.role === "TEACHER").map((u) => (
+                <DropdownMenuItem
+                  key={u.id}
+                  onClick={() => handleUserSwitch(u.id)}
+                  className={u.id === user.id ? "bg-accent" : ""}
+                >
+                  {u.name}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuLabel className="text-xs text-muted-foreground font-normal">
-              Parents
-            </DropdownMenuLabel>
-            {MOCK_USERS.filter((u) => u.role === "PARENT").map((u) => (
-              <DropdownMenuItem
-                key={u.id}
-                onClick={() => handleUserSwitch(u.id)}
-                className={u.id === user.id ? "bg-accent" : ""}
-              >
-                {u.name} {u.childName ? `(${u.childName})` : ""}
-              </DropdownMenuItem>
-            ))}
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="text-xs text-muted-foreground font-normal">
+                Parents
+              </DropdownMenuLabel>
+              {MOCK_USERS.filter((u) => u.role === "PARENT").map((u) => (
+                <DropdownMenuItem
+                  key={u.id}
+                  onClick={() => handleUserSwitch(u.id)}
+                  className={u.id === user.id ? "bg-accent" : ""}
+                >
+                  {u.name} {u.childName ? `(${u.childName})` : ""}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
