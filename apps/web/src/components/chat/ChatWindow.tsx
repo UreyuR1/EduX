@@ -35,9 +35,9 @@ export function ChatWindow({
   }, [messages, streamingContent]);
 
   return (
-    <div className="flex flex-col h-full border rounded-lg overflow-hidden bg-background">
+    <div className="flex flex-col flex-1 min-h-0 border rounded-lg overflow-hidden bg-background">
       {/* Messages area */}
-      <ScrollArea className="flex-1 px-4" ref={scrollRef}>
+      <ScrollArea className="flex-1 min-h-0 px-4" ref={scrollRef}>
         <div className="py-4 space-y-1">
           {messages.length === 0 && !isLoading && (
             <div className="flex items-center justify-center h-32 text-muted-foreground text-sm">

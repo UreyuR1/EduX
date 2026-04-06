@@ -176,7 +176,7 @@ export default function ParentDashboard() {
       </div>
 
       {/* ── Right: Chat ── */}
-      <div className="shrink-0 flex flex-col bg-card" style={{ width: chatWidth }}>
+      <div className="shrink-0 flex flex-col bg-card overflow-hidden" style={{ width: chatWidth }}>
         {/* Chat panel header */}
         <div className="px-4 py-3 border-b bg-primary/8 shrink-0">
           <p className="text-sm font-semibold text-primary">
@@ -202,7 +202,7 @@ export default function ParentDashboard() {
         </div>
 
         {/* Chat window */}
-        <div className="flex-1 min-h-0 p-3">
+        <div className="flex-1 min-h-0 overflow-hidden flex flex-col p-3">
           <ChatWindow
             messages={messages}
             onSend={sendMessage}
