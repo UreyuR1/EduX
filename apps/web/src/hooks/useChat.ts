@@ -33,13 +33,11 @@ export function useChat({
   // Ref (not state) so greeting effects can read it synchronously in the same batch
   const restoredRef = useRef(false);
 
-  // ── Load from localStorage when courseId changes ──────────────────────────
-  useEffect(() => {
-    if (!courseId) return;
+  // ── Load history from localStorage for a given user + course ─────────────
+  const loadHistory = useCallback((userId: string, cId: string) => {
     restoredRef.current = false;
     try {
-      const user = getCurrentUser();
-      const key = storageKey(user.id, chatType, courseId);
+      const key = storageKey(userId, chatType, cId);
       const stored = localStorage.getItem(key);
       if (stored) {
         const parsed: ChatMessage[] = JSON.parse(stored);
@@ -55,14 +53,30 @@ export function useChat({
     }
     setMessages([]);
     messageCountRef.current = 0;
-  }, [courseId, chatType]);
+  }, [chatType]);
+
+  // Reload when courseId changes
+  useEffect(() => {
+    if (!courseId) return;
+    loadHistory(getCurrentUser().id, courseId);
+  }, [courseId, loadHistory]);
+
+  // Reload when user switches (even if courseId stays the same)
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const newUser = (e as CustomEvent).detail;
+      if (courseId) loadHistory(newUser.id, courseId);
+      else { setMessages([]); messageCountRef.current = 0; }
+    };
+    window.addEventListener("edux-user-changed", handler);
+    return () => window.removeEventListener("edux-user-changed", handler);
+  }, [courseId, loadHistory]);
 
   // ── Persist to localStorage whenever messages change ──────────────────────
   useEffect(() => {
     if (!courseId || messages.length === 0) return;
     try {
-      const user = getCurrentUser();
-      const key = storageKey(user.id, chatType, courseId);
+      const key = storageKey(getCurrentUser().id, chatType, courseId);
       localStorage.setItem(key, JSON.stringify(messages.slice(-MAX_STORED)));
     } catch {
       // localStorage full — silently ignore
