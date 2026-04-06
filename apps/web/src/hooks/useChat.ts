@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import type { ChatMessage } from "@/lib/types";
+import { getCurrentUser } from "@/lib/auth";
 
 interface UseChatOptions {
   endpoint: string;
@@ -11,24 +12,76 @@ interface UseChatOptions {
   chatType?: string;
 }
 
-export function useChat({ endpoint, courseId, studentId, language = "en", chatType = "parent" }: UseChatOptions) {
+const MAX_STORED = 50;
+
+function storageKey(userId: string, chatType: string, courseId?: string) {
+  return `edux-chat:${userId}:${chatType}:${courseId ?? "general"}`;
+}
+
+export function useChat({
+  endpoint,
+  courseId,
+  studentId,
+  language = "en",
+  chatType = "parent",
+}: UseChatOptions) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [streamingContent, setStreamingContent] = useState("");
   const abortRef = useRef<AbortController | null>(null);
   const messageCountRef = useRef(0);
+  // Ref (not state) so greeting effects can read it synchronously in the same batch
+  const restoredRef = useRef(false);
 
+  // ── Load from localStorage when courseId changes ──────────────────────────
+  useEffect(() => {
+    if (!courseId) return;
+    restoredRef.current = false;
+    try {
+      const user = getCurrentUser();
+      const key = storageKey(user.id, chatType, courseId);
+      const stored = localStorage.getItem(key);
+      if (stored) {
+        const parsed: ChatMessage[] = JSON.parse(stored);
+        if (parsed.length > 0) {
+          setMessages(parsed);
+          messageCountRef.current = parsed.filter((m) => m.role === "assistant").length;
+          restoredRef.current = true;
+          return;
+        }
+      }
+    } catch {
+      // localStorage unavailable or corrupt — silently ignore
+    }
+    setMessages([]);
+    messageCountRef.current = 0;
+  }, [courseId, chatType]);
+
+  // ── Persist to localStorage whenever messages change ──────────────────────
+  useEffect(() => {
+    if (!courseId || messages.length === 0) return;
+    try {
+      const user = getCurrentUser();
+      const key = storageKey(user.id, chatType, courseId);
+      localStorage.setItem(key, JSON.stringify(messages.slice(-MAX_STORED)));
+    } catch {
+      // localStorage full — silently ignore
+    }
+  }, [messages, courseId, chatType]);
+
+  // ── Reset (e.g. when switching users or injecting proactive greeting) ──────
   const resetMessages = useCallback((initialMessages: ChatMessage[] = []) => {
     abortRef.current?.abort();
+    restoredRef.current = false;
     setMessages(initialMessages);
     setStreamingContent("");
     setIsLoading(false);
     messageCountRef.current = 0;
   }, []);
 
+  // ── Send a message and stream the response ────────────────────────────────
   const sendMessage = useCallback(
     async (content: string) => {
-      // Add user message
       const userMsg: ChatMessage = {
         id: `user-${Date.now()}`,
         role: "user",
@@ -39,13 +92,8 @@ export function useChat({ endpoint, courseId, studentId, language = "en", chatTy
       setIsLoading(true);
       setStreamingContent("");
 
-      // Build history for context
-      const history = messages.map((m) => ({
-        role: m.role,
-        content: m.content,
-      }));
+      const history = messages.map((m) => ({ role: m.role, content: m.content }));
 
-      // Abort previous request if any
       abortRef.current?.abort();
       const controller = new AbortController();
       abortRef.current = controller;
@@ -84,21 +132,15 @@ export function useChat({ endpoint, courseId, studentId, language = "en", chatTy
             if (line.startsWith("data: ")) {
               const raw = line.slice(6).trim();
               if (raw === "[DONE]") {
-                // Finalize: move streaming content to messages
                 setMessages((prev) => [
                   ...prev,
-                  {
-                    id: `assistant-${Date.now()}`,
-                    role: "assistant",
-                    content: accumulated,
-                  },
+                  { id: `assistant-${Date.now()}`, role: "assistant", content: accumulated },
                 ]);
                 setStreamingContent("");
                 messageCountRef.current += 1;
                 setIsLoading(false);
                 return;
               }
-              // Chunks are JSON-encoded strings to preserve spaces/newlines
               try {
                 const chunk = JSON.parse(raw);
                 if (typeof chunk === "string") {
@@ -106,7 +148,6 @@ export function useChat({ endpoint, courseId, studentId, language = "en", chatTy
                   setStreamingContent(accumulated);
                 }
               } catch {
-                // Fallback: treat as plain text (e.g. from FastAPI proxy)
                 accumulated += raw;
                 setStreamingContent(accumulated);
               }
@@ -114,15 +155,10 @@ export function useChat({ endpoint, courseId, studentId, language = "en", chatTy
           }
         }
 
-        // If we get here without [DONE], still finalize
         if (accumulated) {
           setMessages((prev) => [
             ...prev,
-            {
-              id: `assistant-${Date.now()}`,
-              role: "assistant",
-              content: accumulated,
-            },
+            { id: `assistant-${Date.now()}`, role: "assistant", content: accumulated },
           ]);
           setStreamingContent("");
           messageCountRef.current += 1;
@@ -135,8 +171,7 @@ export function useChat({ endpoint, courseId, studentId, language = "en", chatTy
             {
               id: `error-${Date.now()}`,
               role: "assistant",
-              content:
-                "Sorry, I encountered an error. Please try again.",
+              content: "Sorry, I encountered an error. Please try again.",
             },
           ]);
         }
@@ -144,10 +179,8 @@ export function useChat({ endpoint, courseId, studentId, language = "en", chatTy
         setIsLoading(false);
       }
     },
-    [endpoint, courseId, studentId, language, messages]
+    [endpoint, courseId, studentId, language, messages, chatType]
   );
-
-  const exchangeCount = messageCountRef.current;
 
   return {
     messages,
@@ -155,6 +188,8 @@ export function useChat({ endpoint, courseId, studentId, language = "en", chatTy
     streamingContent,
     sendMessage,
     resetMessages,
-    exchangeCount,
+    exchangeCount: messageCountRef.current,
+    /** True if messages were restored from localStorage this session (used to skip proactive greeting) */
+    isRestoredFromStorage: restoredRef,
   };
 }

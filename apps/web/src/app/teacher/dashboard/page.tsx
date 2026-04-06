@@ -34,7 +34,7 @@ export default function TeacherDashboard() {
 
   const { chatWidth, onMouseDown } = useResizablePanel({ defaultWidth: 400, minWidth: 400, maxRatio: 0.5 });
 
-  const { messages, isLoading: chatLoading, streamingContent, sendMessage, resetMessages } = useChat({
+  const { messages, isLoading: chatLoading, streamingContent, sendMessage, resetMessages, isRestoredFromStorage } = useChat({
     endpoint: "/api/chat",
     courseId: selectedCourseId || undefined,
     language: "en",
@@ -88,9 +88,16 @@ export default function TeacherDashboard() {
       .catch(console.error);
   }, [selectedCourseId]);
 
-  // Inject proactive greeting when course changes
+  // Inject proactive greeting when course changes — skip if history restored from localStorage
   useEffect(() => {
     if (!selectedCourseId || proactiveInjectedRef.current === selectedCourseId) return;
+
+    // If localStorage already has history for this course, don't overwrite it
+    if (isRestoredFromStorage.current) {
+      proactiveInjectedRef.current = selectedCourseId;
+      return;
+    }
+
     const course = courses.find((c) => c.id === selectedCourseId);
     if (!course) return;
 
@@ -107,6 +114,7 @@ export default function TeacherDashboard() {
         ]);
       })
       .catch(console.error);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCourseId, courses, resetMessages]);
 
   if (loading) {
