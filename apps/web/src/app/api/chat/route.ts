@@ -32,6 +32,16 @@ export async function POST(request: NextRequest) {
   }
 }
 
+/** Map Australian year level → NSW curriculum stage for CurricuLLM context */
+function getCurriculumStage(yearLevel: string): string {
+  const n = parseInt(yearLevel.replace(/\D/g, ""), 10);
+  if (isNaN(n) || n <= 2) return "Stage 1";
+  if (n <= 4) return "Stage 2";
+  if (n <= 6) return "Stage 3";
+  if (n <= 8) return "Stage 4";
+  return "Stage 5";
+}
+
 async function handleDirectLLM(
   message: string,
   courseId: string | null,
@@ -40,8 +50,8 @@ async function handleDirectLLM(
   chatType: string
 ) {
   const apiKey = process.env.LLM_API_KEY;
-  const baseUrl = process.env.LLM_BASE_URL || "https://sz.uyilink.com";
-  const model = process.env.LLM_MODEL || "gpt-5.4-mini";
+  const baseUrl = process.env.LLM_BASE_URL || "https://api.curricullm.com";
+  const model = process.env.LLM_MODEL || "CurricuLLM-AU";
 
   if (!apiKey) {
     return sseError("I'm currently unavailable. Please check the API configuration.");
@@ -155,6 +165,16 @@ ${context || "No course data is currently available. Let the parent know you don
         max_tokens: 2048,
         messages,
         stream: true,
+        // CurricuLLM-specific: curriculum context improves pedagogical alignment
+        ...(courseId ? (() => {
+          const course = getCourses().find((c) => c.id === courseId);
+          return course ? {
+            curriculum: {
+              stage: getCurriculumStage(course.yearLevel),
+              subject: course.subject,
+            }
+          } : {};
+        })() : {}),
       }),
     });
 

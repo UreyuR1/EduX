@@ -6,8 +6,8 @@ export async function POST(request: NextRequest) {
   const { insight, courseName }: { insight: Insight; courseName: string } = body;
 
   const apiKey = process.env.LLM_API_KEY;
-  const baseUrl = process.env.LLM_BASE_URL || "https://sz.uyilink.com";
-  const model = process.env.LLM_MODEL || "gpt-5.4-mini";
+  const baseUrl = process.env.LLM_BASE_URL || "https://api.curricullm.com";
+  const model = process.env.LLM_MODEL || "CurricuLLM-AU";
 
   if (!apiKey) {
     return NextResponse.json(
@@ -44,6 +44,14 @@ Return ONLY the message text, no subject line or sign-off needed.`;
         max_tokens: 300,
         messages: [{ role: "user", content: prompt }],
         stream: false,
+        // CurricuLLM-specific: helps model align tone to Australian primary school context
+        curriculum: {
+          stage: "Stage 3",
+          subject: courseName.toLowerCase().includes("math") ? "Mathematics"
+            : courseName.toLowerCase().includes("english") ? "English"
+            : courseName.toLowerCase().includes("science") ? "Science"
+            : "General",
+        },
       }),
     });
 
