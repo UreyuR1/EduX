@@ -46,16 +46,24 @@ export function AttentionList({ students }: AttentionListProps) {
               </Avatar>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium">{student.name}</p>
-                <div className="flex flex-wrap gap-1 mt-1">
-                  {student.flags.map((flag) => (
-                    <Badge
-                      key={flag}
-                      variant="secondary"
-                      className="text-xs bg-amber-50 text-amber-700 border-amber-200"
-                    >
-                      {flag}
-                    </Badge>
-                  ))}
+                <div className="flex flex-col gap-1 mt-1">
+                  {student.flags.map((flag) => {
+                    const isConcernFlag = flag === "Multiple parent concerns reported";
+                    const label = isConcernFlag ? "May benefit from extra attention" : flag;
+                    const details = isConcernFlag ? student.concerns : [];
+                    return (
+                      <div key={flag}>
+                        <Badge
+                          variant="secondary"
+                          className="text-xs bg-amber-50 text-amber-700 border-amber-200 whitespace-normal h-auto py-0.5"
+                        >
+                          {details.length > 0
+                            ? `${label}: ${details.map((d) => `'${d}'`).join(", ")}`
+                            : label}
+                        </Badge>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>

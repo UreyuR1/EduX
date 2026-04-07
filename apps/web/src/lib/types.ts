@@ -62,6 +62,7 @@ export interface StudentAttention {
   id: string;
   name: string;
   flags: string[];
+  concerns: string[]; // actual feedback values behind "Multiple parent concerns"
   courseId: string;
 }
 

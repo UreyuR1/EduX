@@ -218,17 +218,33 @@ export function getStudentsNeedingAttention(courseId: string) {
       );
 
       const flags: string[] = [];
+      const concerns: string[] = [];
+
       if (perf?.label.includes("extra attention")) {
         flags.push(perf.label);
+        if (perf.details) concerns.push(perf.details);
       }
       if (parentFeedback.length >= 2) {
         flags.push("Multiple parent concerns reported");
+        const skipTags = new Set(["positive-feedback", "completed-homework", "incomplete-homework", "weekly-focus-helpful", "high-engagement", "fraction-improvement"]);
+        parentFeedback.forEach((f) => {
+          if (f.type === "difficulty" && f.value) {
+            if (!concerns.includes(f.value)) concerns.push(f.value);
+          } else if (f.type === "open") {
+            const tag = (f.tags || []).find((t) => !skipTags.has(t));
+            if (tag) {
+              const label = tag.replace(/-/g, " ").replace(/^[a-z]/, (c) => c.toUpperCase());
+              if (!concerns.includes(label)) concerns.push(label);
+            }
+          }
+        });
       }
 
       return {
         id: e.studentId,
         name: student?.name || "",
         flags,
+        concerns,
         courseId,
       };
     })
