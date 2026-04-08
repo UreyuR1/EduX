@@ -1,0 +1,17 @@
+node_modules/
+.next/
+.env
+.env.local
+.env*.local
+dist/
+__pycache__/
+*.pyc
+.venv/
+chroma_data/
+.DS_Store
+.claude/
+
+# Internal planning & meeting notes — keep local only
+PLAN.md
+edux-prototype-spec.md
+BridgeED_*.md
