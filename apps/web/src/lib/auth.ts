@@ -52,7 +52,7 @@ export const MOCK_USERS: MockUser[] = [
     name: "Priya Sharma",
     email: "priya.s@example.com",
     role: "PARENT",
-    language: "en",
+    language: "hi",
     childName: "Arjun Sharma",
   },
 ];

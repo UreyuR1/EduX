@@ -85,7 +85,7 @@ PARENT FEEDBACK SUMMARY:
 - Sentiment: ${sentDist.positive} positive, ${sentDist.neutral} neutral, ${sentDist.negative} needs support
 - Top difficulty topics:\n${topTagsStr || "  (none reported)"}
 
-AI INSIGHTS (${newInsights.length} unactioned):
+INSIGHTS (${newInsights.length} unactioned):
 ${insightsStr || "  (no new insights)"}`;
         }
       } else {
@@ -128,7 +128,7 @@ IMPORTANT RULES:
 - Explain curriculum concepts in plain, jargon-free language
 - Suggest specific at-home learning activities when relevant
 - Keep responses concise (2-3 short paragraphs max)
-- Respond in ${language === "zh" ? "Chinese (Simplified)" : "English"}
+- Respond in ${language === "zh" ? "Chinese (Simplified)" : language === "hi" ? "Hindi" : "English"}
 
 COURSE DATA:
 ${context || "No course data is currently available. Let the parent know you don't have access to their child's course information yet."}`;

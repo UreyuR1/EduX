@@ -14,7 +14,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { MOCK_USERS, getCurrentUser, setCurrentUser, type MockUser } from "@/lib/auth";
-import { SUPPORTED_LANGUAGES } from "@/lib/i18n";
+import { SUPPORTED_LANGUAGES, t } from "@/lib/i18n";
 
 interface HeaderProps {
   showLanguageToggle?: boolean;
@@ -22,7 +22,7 @@ interface HeaderProps {
   onLanguageChange?: (lang: string) => void;
 }
 
-export function Header({ showLanguageToggle, language, onLanguageChange }: HeaderProps) {
+export function Header({ showLanguageToggle, language = "en", onLanguageChange }: HeaderProps) {
   const router = useRouter();
   const [user, setUser] = useState<MockUser | null>(null);
 
@@ -58,7 +58,7 @@ export function Header({ showLanguageToggle, language, onLanguageChange }: Heade
           EduX
         </span>
         <Badge variant="secondary" className="text-xs">
-          {user.role === "TEACHER" ? "Teacher" : "Parent"}
+          {user.role === "TEACHER" ? t("nav.role.teacher", language) : t("nav.role.parent", language)}
         </Badge>
       </div>
 
@@ -90,12 +90,12 @@ export function Header({ showLanguageToggle, language, onLanguageChange }: Heade
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
             <DropdownMenuGroup>
-              <DropdownMenuLabel>Switch User</DropdownMenuLabel>
+              <DropdownMenuLabel>{t("nav.switchUser", language)}</DropdownMenuLabel>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuLabel className="text-xs text-muted-foreground font-normal">
-                Teachers
+                {t("nav.teachers", language)}
               </DropdownMenuLabel>
               {MOCK_USERS.filter((u) => u.role === "TEACHER").map((u) => (
                 <DropdownMenuItem
@@ -110,7 +110,7 @@ export function Header({ showLanguageToggle, language, onLanguageChange }: Heade
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuLabel className="text-xs text-muted-foreground font-normal">
-                Parents
+                {t("nav.parents", language)}
               </DropdownMenuLabel>
               {MOCK_USERS.filter((u) => u.role === "PARENT").map((u) => (
                 <DropdownMenuItem

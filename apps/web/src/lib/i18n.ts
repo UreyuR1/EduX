@@ -1,5 +1,5 @@
 /**
- * Simple i18n for English and Mandarin.
+ * i18n for English, Mandarin Chinese, and Hindi.
  */
 
 const translations: Record<string, Record<string, string>> = {
@@ -27,6 +27,34 @@ const translations: Record<string, Record<string, string>> = {
     "common.loading": "Loading...",
     "common.noData": "No data available",
     "common.send": "Send",
+    // Header
+    "nav.role.teacher": "Teacher",
+    "nav.role.parent": "Parent",
+    "nav.teachers": "Teachers",
+    "nav.parents": "Parents",
+    // Parent dashboard
+    "parent.dashboard.title": "Dashboard",
+    "parent.dashboard.subtitle": "Your child's learning overview",
+    "parent.dashboard.thisWeek": "This Week",
+    "parent.dashboard.chatTitle": "AI Learning Assistant",
+    // CourseCard
+    "parent.course.teacher": "Teacher",
+    "parent.course.overview": "Course Overview",
+    // WeeklyFocus
+    "parent.weeklyFocus.topic": "Topic",
+    "parent.weeklyFocus.teacherMsg": "Message from your teacher",
+    // FeedbackPrompt
+    "parent.feedback.title1": "Quick Feedback",
+    "parent.feedback.title2": "One more question",
+    "parent.feedback.skip": "Skip",
+    "parent.feedback.thanks": "Thank you for your feedback!",
+    "parent.feedback.fractions": "Fractions",
+    "parent.feedback.wordProblems": "Word problems",
+    "parent.feedback.readingComprehension": "Reading comprehension",
+    "parent.feedback.writing": "Writing",
+    "parent.feedback.other": "Other",
+    // Chat
+    "chat.emptyState": "Start a conversation...",
   },
   zh: {
     "nav.dashboard": "仪表盘",
@@ -52,6 +80,87 @@ const translations: Record<string, Record<string, string>> = {
     "common.loading": "加载中...",
     "common.noData": "暂无数据",
     "common.send": "发送",
+    // Header
+    "nav.role.teacher": "教师",
+    "nav.role.parent": "家长",
+    "nav.teachers": "教师",
+    "nav.parents": "家长",
+    // Parent dashboard
+    "parent.dashboard.title": "学习概览",
+    "parent.dashboard.subtitle": "孩子的学习情况",
+    "parent.dashboard.thisWeek": "本周学习重点",
+    "parent.dashboard.chatTitle": "AI 学习助手",
+    // CourseCard
+    "parent.course.teacher": "教师",
+    "parent.course.overview": "课程概览",
+    // WeeklyFocus
+    "parent.weeklyFocus.topic": "主题",
+    "parent.weeklyFocus.teacherMsg": "老师的消息",
+    // FeedbackPrompt
+    "parent.feedback.title1": "快速反馈",
+    "parent.feedback.title2": "再问一个问题",
+    "parent.feedback.skip": "跳过",
+    "parent.feedback.thanks": "感谢您的反馈！",
+    "parent.feedback.fractions": "分数",
+    "parent.feedback.wordProblems": "应用题",
+    "parent.feedback.readingComprehension": "阅读理解",
+    "parent.feedback.writing": "写作",
+    "parent.feedback.other": "其他",
+    // Chat
+    "chat.emptyState": "开始对话...",
+  },
+  hi: {
+    "nav.dashboard": "डैशबोर्ड",
+    "nav.chat": "चैट",
+    "nav.switchUser": "उपयोगकर्ता बदलें",
+    "parent.courses": "पाठ्यक्रम",
+    "parent.performance": "प्रदर्शन",
+    "parent.weeklyFocus": "इस सप्ताह का शिक्षण केंद्र",
+    "parent.chat.placeholder": "अपने बच्चे की पढ़ाई के बारे में पूछें...",
+    "parent.feedback.completion": "क्या आपके बच्चे ने इस सप्ताह की शिक्षण गतिविधि पूरी की?",
+    "parent.feedback.done": "हो गया",
+    "parent.feedback.notYet": "अभी नहीं",
+    "parent.feedback.partially": "आंशिक रूप से",
+    "parent.feedback.difficulty": "आपके बच्चे को क्या सबसे कठिन लगा?",
+    "teacher.courses": "मेरे पाठ्यक्रम",
+    "teacher.feedbackOverview": "अभिभावक प्रतिक्रिया अवलोकन",
+    "teacher.insights": "अंतर्दृष्टि",
+    "teacher.attention": "ध्यान देने वाले छात्र",
+    "teacher.keywords": "प्रतिक्रिया कीवर्ड",
+    "teacher.chat.placeholder": "प्रतिक्रिया रुझानों के बारे में पूछें...",
+    "teacher.generateMessage": "अभिभावक संदेश बनाएं",
+    "teacher.publish": "अभिभावकों को प्रकाशित करें",
+    "common.loading": "लोड हो रहा है...",
+    "common.noData": "कोई डेटा उपलब्ध नहीं",
+    "common.send": "भेजें",
+    // Header
+    "nav.role.teacher": "\u0936\u093f\u0915\u094d\u0937\u0915",
+    "nav.role.parent": "\u0905\u092d\u093f\u092d\u093e\u0935\u0915",
+    "nav.teachers": "\u0936\u093f\u0915\u094d\u0937\u0915",
+    "nav.parents": "\u0905\u092d\u093f\u092d\u093e\u0935\u0915",
+    // Parent dashboard
+    "parent.dashboard.title": "डैशबोर्ड",
+    "parent.dashboard.subtitle": "आपके बच्चे की सीखने की स्थिति",
+    "parent.dashboard.thisWeek": "इस सप्ताह",
+    "parent.dashboard.chatTitle": "AI शिक्षण सहायक",
+    // CourseCard
+    "parent.course.teacher": "शिक्षक",
+    "parent.course.overview": "पाठ्यक्रम अवलोकन",
+    // WeeklyFocus
+    "parent.weeklyFocus.topic": "विषय",
+    "parent.weeklyFocus.teacherMsg": "आपके शिक्षक का संदेश",
+    // FeedbackPrompt
+    "parent.feedback.title1": "त्वरित प्रतिक्रिया",
+    "parent.feedback.title2": "एक और सवाल",
+    "parent.feedback.skip": "छोड़ें",
+    "parent.feedback.thanks": "आपकी प्रतिक्रिया के लिए धन्यवाद!",
+    "parent.feedback.fractions": "भिन्न",
+    "parent.feedback.wordProblems": "शब्द समस्याएं",
+    "parent.feedback.readingComprehension": "पाठ बोध",
+    "parent.feedback.writing": "लेखन",
+    "parent.feedback.other": "अन्य",
+    // Chat
+    "chat.emptyState": "बातचीत शुरू करें...",
   },
 };
 
@@ -62,4 +171,5 @@ export function t(key: string, language: string = "en"): string {
 export const SUPPORTED_LANGUAGES = [
   { code: "en", label: "English" },
   { code: "zh", label: "中文" },
+  { code: "hi", label: "हिन्दी" },
 ];

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useResizablePanel } from "@/hooks/useResizablePanel";
 import { CourseCard } from "@/components/parent/CourseCard";
 import { WeeklyFocus } from "@/components/parent/WeeklyFocus";
@@ -9,6 +9,8 @@ import { ChatWindow } from "@/components/chat/ChatWindow";
 import { FeedbackPrompt } from "@/components/parent/FeedbackPrompt";
 import { getCurrentUser, type MockUser } from "@/lib/auth";
 import { useChat } from "@/hooks/useChat";
+import { t } from "@/lib/i18n";
+import { seedDemoChatHistory } from "@/lib/demo-chat-history";
 import type { Course, PerformanceNote, WeeklyFocus as WeeklyFocusType } from "@/lib/types";
 
 export default function ParentDashboard() {
@@ -34,6 +36,9 @@ export default function ParentDashboard() {
   }, [exchangeCount, feedbackDismissed]);
 
   useEffect(() => {
+    // Seed demo chat histories on first load
+    seedDemoChatHistory();
+
     async function loadData(u: MockUser) {
       if (u.role !== "PARENT") return;
       setLoading(true);
@@ -88,11 +93,6 @@ export default function ParentDashboard() {
 
   const { chatWidth, onMouseDown } = useResizablePanel({ defaultWidth: 400, minWidth: 400, maxRatio: 0.5 });
 
-  const placeholder = useMemo(
-    () => language === "zh" ? "询问有关孩子学习的问题..." : "Ask about your child's learning...",
-    [language]
-  );
-
   if (!user) return null;
 
   return (
@@ -101,10 +101,10 @@ export default function ParentDashboard() {
       <div className="flex-1 overflow-y-auto p-6 space-y-6 min-w-0">
         <div>
           <h1 className="text-2xl font-bold text-foreground">
-            {language === "zh" ? "学习概览" : "Dashboard"}
+            {t("parent.dashboard.title", language)}
           </h1>
           <p className="text-muted-foreground text-sm mt-1">
-            {language === "zh" ? "孩子的学习情况" : "Your child's learning overview"}
+            {t("parent.dashboard.subtitle", language)}
           </p>
         </div>
 
@@ -119,13 +119,18 @@ export default function ParentDashboard() {
             {Object.keys(weeklyFocuses).length > 0 && (
               <section className="space-y-3">
                 <h2 className="text-base font-semibold text-foreground">
-                  🎯 {language === "zh" ? "本周学习重点" : "This Week"}
+                  🎯 {t("parent.dashboard.thisWeek", language)}
                 </h2>
                 <div className="space-y-3">
                   {Object.entries(weeklyFocuses).map(([courseId, focus]) => {
                     const course = courses.find((c) => c.id === courseId);
                     return (
-                      <WeeklyFocus key={courseId} focus={focus} courseName={course?.name || ""} />
+                      <WeeklyFocus
+                        key={courseId}
+                        focus={focus}
+                        courseName={course?.name || ""}
+                        language={language}
+                      />
                     );
                   })}
                 </div>
@@ -135,7 +140,7 @@ export default function ParentDashboard() {
             {/* Courses */}
             <section className="space-y-3">
               <h2 className="text-base font-semibold text-foreground">
-                📚 {language === "zh" ? "课程" : "Courses"}
+                📚 {t("parent.courses", language)}
               </h2>
               <div className="grid grid-cols-1 gap-4">
                 {courses.map((course) => {
@@ -147,6 +152,7 @@ export default function ParentDashboard() {
                       course={course}
                       performance={firstPerf}
                       expanded={expandedCourse === course.id}
+                      language={language}
                       onToggle={() =>
                         setExpandedCourse(expandedCourse === course.id ? null : course.id)
                       }
@@ -180,7 +186,7 @@ export default function ParentDashboard() {
         {/* Chat panel header */}
         <div className="px-4 py-3 border-b bg-primary/8 shrink-0">
           <p className="text-sm font-semibold text-primary">
-            💬 {language === "zh" ? "AI 学习助手" : "AI Learning Assistant"}
+            💬 {t("parent.dashboard.chatTitle", language)}
           </p>
           {courses.length > 1 && (
             <div className="flex gap-2 mt-2 flex-wrap">
@@ -194,7 +200,9 @@ export default function ParentDashboard() {
                       : "bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                   }`}
                 >
-                  {course.name}
+                  {course.syllabusCode
+                    ? `${course.name} (${course.syllabusCode})`
+                    : course.name}
                 </button>
               ))}
             </div>
@@ -208,13 +216,15 @@ export default function ParentDashboard() {
             onSend={sendMessage}
             isLoading={chatLoading}
             streamingContent={streamingContent}
-            placeholder={placeholder}
+            placeholder={t("parent.chat.placeholder", language)}
+            emptyState={t("chat.emptyState", language)}
             userAvatar={user.name.slice(0, 2)}
           >
             {showFeedback && selectedCourseId && (
               <FeedbackPrompt
                 courseId={selectedCourseId}
                 parentId={user.id}
+                language={language}
                 onDismiss={() => {
                   setShowFeedback(false);
                   setFeedbackDismissed(true);

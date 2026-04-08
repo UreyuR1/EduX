@@ -7,6 +7,7 @@ export interface Course {
   name: string;
   yearLevel: string;
   subject: string;
+  syllabusCode?: string;
   syllabusPlain: string;
   currentWeek: number;
   totalWeeks: number;
@@ -26,7 +27,11 @@ export interface WeeklyFocus {
   id: string;
   weekNumber: number;
   topic: string;
+  topic_zh?: string;
+  topic_hi?: string;
   activity: string;
+  activity_zh?: string;
+  activity_hi?: string;
   source: "auto" | "teacher";
   courseId: string;
 }

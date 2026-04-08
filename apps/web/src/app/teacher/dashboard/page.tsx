@@ -160,7 +160,7 @@ export default function TeacherDashboard() {
           <TabsList>
             {courses.map((course) => (
               <TabsTrigger key={course.id} value={course.id}>
-                {course.name}
+                {course.syllabusCode ? `${course.name} (${course.syllabusCode})` : course.name}
               </TabsTrigger>
             ))}
           </TabsList>
@@ -177,7 +177,7 @@ export default function TeacherDashboard() {
                 {/* Insights */}
                 {insights.length > 0 && (
                   <div>
-                    <h2 className="text-base font-semibold mb-3">AI Insights</h2>
+                    <h2 className="text-base font-semibold mb-3">Insights</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {insights.map((insight) => (
                         <InsightCard
@@ -234,7 +234,7 @@ export default function TeacherDashboard() {
                       : "bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                   }`}
                 >
-                  {course.name}
+                  {course.syllabusCode ? `${course.name} (${course.syllabusCode})` : course.name}
                 </button>
               ))}
             </div>

@@ -24,6 +24,7 @@ interface RawCourse {
   name: string;
   yearLevel: string;
   subject: string;
+  syllabusCode?: string;
   currentWeek: number;
   totalWeeks: number;
   teacherId: string;
@@ -60,7 +61,11 @@ interface RawWeeklyFocus {
   courseId: string;
   weekNumber: number;
   topic: string;
+  topic_zh?: string;
+  topic_hi?: string;
   activity: string;
+  activity_zh?: string;
+  activity_hi?: string;
   source: string;
 }
 
@@ -122,6 +127,7 @@ export function getCourses() {
       name: c.name,
       yearLevel: c.yearLevel,
       subject: c.subject,
+      syllabusCode: c.syllabusCode,
       currentWeek: c.currentWeek,
       totalWeeks: c.totalWeeks,
       teacherId: c.teacherId,

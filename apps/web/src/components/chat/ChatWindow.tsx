@@ -12,6 +12,7 @@ interface ChatWindowProps {
   isLoading?: boolean;
   streamingContent?: string;
   placeholder?: string;
+  emptyState?: string;
   userAvatar?: string;
   children?: React.ReactNode; // For overlay components like FeedbackPrompt
 }
@@ -22,6 +23,7 @@ export function ChatWindow({
   isLoading,
   streamingContent,
   placeholder,
+  emptyState = "Start a conversation...",
   userAvatar,
   children,
 }: ChatWindowProps) {
@@ -41,7 +43,7 @@ export function ChatWindow({
         <div className="py-4 space-y-1">
           {messages.length === 0 && !isLoading && (
             <div className="flex items-center justify-center h-32 text-muted-foreground text-sm">
-              Start a conversation...
+              {emptyState}
             </div>
           )}
 

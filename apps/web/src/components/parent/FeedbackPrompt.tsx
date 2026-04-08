@@ -4,16 +4,27 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { t } from "@/lib/i18n";
 
 interface FeedbackPromptProps {
   courseId: string;
   parentId: string;
   onDismiss: () => void;
+  language?: string;
 }
 
 type Step = "completion" | "difficulty" | "done";
 
-export function FeedbackPrompt({ courseId, parentId, onDismiss }: FeedbackPromptProps) {
+// Difficulty topics: value is always English (stored in DB), label is translated for display
+const DIFFICULTY_TOPICS = [
+  { value: "Fractions",             key: "parent.feedback.fractions" },
+  { value: "Word problems",         key: "parent.feedback.wordProblems" },
+  { value: "Reading comprehension", key: "parent.feedback.readingComprehension" },
+  { value: "Writing",               key: "parent.feedback.writing" },
+  { value: "Other",                 key: "parent.feedback.other" },
+];
+
+export function FeedbackPrompt({ courseId, parentId, onDismiss, language = "en" }: FeedbackPromptProps) {
   const [step, setStep] = useState<Step>("completion");
   const [submitting, setSubmitting] = useState(false);
 
@@ -48,7 +59,7 @@ export function FeedbackPrompt({ courseId, parentId, onDismiss }: FeedbackPrompt
       <div className="mx-4 mb-2">
         <Card className="border-green-200 bg-green-50">
           <CardContent className="py-3 text-center text-sm text-green-700">
-            Thank you for your feedback!
+            {t("parent.feedback.thanks", language)}
           </CardContent>
         </Card>
       </div>
@@ -62,15 +73,15 @@ export function FeedbackPrompt({ courseId, parentId, onDismiss }: FeedbackPrompt
           <div className="flex items-center justify-between">
             <CardTitle className="text-sm font-medium">
               {step === "completion"
-                ? "Quick Feedback"
-                : "One more question"}
+                ? t("parent.feedback.title1", language)
+                : t("parent.feedback.title2", language)}
             </CardTitle>
             <Badge
               variant="outline"
               className="text-xs cursor-pointer hover:bg-accent"
               onClick={onDismiss}
             >
-              Skip
+              {t("parent.feedback.skip", language)}
             </Badge>
           </div>
         </CardHeader>
@@ -78,7 +89,7 @@ export function FeedbackPrompt({ courseId, parentId, onDismiss }: FeedbackPrompt
           {step === "completion" && (
             <div className="space-y-2">
               <p className="text-sm text-muted-foreground">
-                Did your child complete this week&apos;s learning activity?
+                {t("parent.feedback.completion", language)}
               </p>
               <div className="flex gap-2">
                 <Button
@@ -87,7 +98,7 @@ export function FeedbackPrompt({ courseId, parentId, onDismiss }: FeedbackPrompt
                   onClick={() => handleCompletion("Done")}
                   disabled={submitting}
                 >
-                  Done
+                  {t("parent.feedback.done", language)}
                 </Button>
                 <Button
                   size="sm"
@@ -95,7 +106,7 @@ export function FeedbackPrompt({ courseId, parentId, onDismiss }: FeedbackPrompt
                   onClick={() => handleCompletion("Partially")}
                   disabled={submitting}
                 >
-                  Partially
+                  {t("parent.feedback.partially", language)}
                 </Button>
                 <Button
                   size="sm"
@@ -103,7 +114,7 @@ export function FeedbackPrompt({ courseId, parentId, onDismiss }: FeedbackPrompt
                   onClick={() => handleCompletion("Not yet")}
                   disabled={submitting}
                 >
-                  Not yet
+                  {t("parent.feedback.notYet", language)}
                 </Button>
               </div>
             </div>
@@ -112,22 +123,20 @@ export function FeedbackPrompt({ courseId, parentId, onDismiss }: FeedbackPrompt
           {step === "difficulty" && (
             <div className="space-y-2">
               <p className="text-sm text-muted-foreground">
-                What did your child find most challenging?
+                {t("parent.feedback.difficulty", language)}
               </p>
               <div className="flex flex-wrap gap-2">
-                {["Fractions", "Word problems", "Reading comprehension", "Writing", "Other"].map(
-                  (topic) => (
-                    <Button
-                      key={topic}
-                      size="sm"
-                      variant="outline"
-                      onClick={() => handleDifficulty(topic)}
-                      disabled={submitting}
-                    >
-                      {topic}
-                    </Button>
-                  )
-                )}
+                {DIFFICULTY_TOPICS.map(({ value, key }) => (
+                  <Button
+                    key={value}
+                    size="sm"
+                    variant="outline"
+                    onClick={() => handleDifficulty(value)}
+                    disabled={submitting}
+                  >
+                    {t(key, language)}
+                  </Button>
+                ))}
               </div>
             </div>
           )}
