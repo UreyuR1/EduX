@@ -1,0 +1,82 @@
+/**
+ * Shared TypeScript types for the EduX frontend.
+ */
+
+export interface Course {
+  id: string;
+  name: string;
+  yearLevel: string;
+  subject: string;
+  syllabusCode?: string;
+  syllabusPlain: string;
+  syllabusPlain_zh?: string;
+  syllabusPlain_hi?: string;
+  currentWeek: number;
+  totalWeeks: number;
+  teacherId: string;
+  teacherName?: string;
+}
+
+export interface PerformanceNote {
+  id: string;
+  label: string;
+  details?: string;
+  studentId: string;
+  courseId: string;
+}
+
+export interface WeeklyFocus {
+  id: string;
+  weekNumber: number;
+  topic: string;
+  topic_zh?: string;
+  topic_hi?: string;
+  activity: string;
+  activity_zh?: string;
+  activity_hi?: string;
+  source: "auto" | "teacher";
+  courseId: string;
+  curriculumCode?: string;
+}
+
+export interface Feedback {
+  id: string;
+  type: "completion" | "difficulty" | "open";
+  value: string;
+  tags: string[];
+  sentiment?: string;
+  parentId: string;
+  courseId: string;
+  createdAt: string;
+}
+
+export interface Insight {
+  id: string;
+  dataPoint: string;
+  therefore: string;
+  suggestion: string;
+  status: "NEW" | "ACTIONED" | "DISMISSED";
+  courseId: string;
+}
+
+export interface FeedbackAggregate {
+  courseId: string;
+  completionRate: number;
+  topTags: { tag: string; count: number }[];
+  sentimentDistribution: { positive: number; neutral: number; negative: number };
+}
+
+export interface StudentAttention {
+  id: string;
+  name: string;
+  flags: string[];
+  concerns: string[]; // actual feedback values behind "Multiple parent concerns"
+  courseId: string;
+}
+
+export interface ChatMessage {
+  id: string;
+  role: "user" | "assistant" | "system";
+  content: string;
+  createdAt?: string;
+}

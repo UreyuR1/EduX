@@ -1,0 +1,86 @@
+[
+  {
+    "id": "teacher-1",
+    "name": "Ms. Sarah Chen",
+    "email": "sarah.chen@riverside.edu.au",
+    "role": "TEACHER",
+    "language": "en"
+  },
+  {
+    "id": "teacher-2",
+    "name": "Mr. James Nguyen",
+    "email": "james.nguyen@riverside.edu.au",
+    "role": "TEACHER",
+    "language": "en"
+  },
+  {
+    "id": "parent-1",
+    "name": "Li Wei",
+    "email": "li.wei@example.com",
+    "role": "PARENT",
+    "language": "zh"
+  },
+  {
+    "id": "parent-2",
+    "name": "Emma Thompson",
+    "email": "emma.t@example.com",
+    "role": "PARENT",
+    "language": "en"
+  },
+  {
+    "id": "parent-3",
+    "name": "Priya Sharma",
+    "email": "priya.s@example.com",
+    "role": "PARENT",
+    "language": "hi"
+  },
+  {
+    "id": "parent-4",
+    "name": "Michael O'Brien",
+    "email": "michael.ob@example.com",
+    "role": "PARENT",
+    "language": "en"
+  },
+  {
+    "id": "parent-5",
+    "name": "Zhang Mei",
+    "email": "zhang.mei@example.com",
+    "role": "PARENT",
+    "language": "zh"
+  },
+  {
+    "id": "parent-6",
+    "name": "Sarah Williams",
+    "email": "sarah.w@example.com",
+    "role": "PARENT",
+    "language": "en"
+  },
+  {
+    "id": "parent-7",
+    "name": "David Kim",
+    "email": "david.kim@example.com",
+    "role": "PARENT",
+    "language": "en"
+  },
+  {
+    "id": "parent-8",
+    "name": "Fatima Al-Hassan",
+    "email": "fatima.ah@example.com",
+    "role": "PARENT",
+    "language": "en"
+  },
+  {
+    "id": "parent-9",
+    "name": "Tom Baker",
+    "email": "tom.baker@example.com",
+    "role": "PARENT",
+    "language": "en"
+  },
+  {
+    "id": "parent-10",
+    "name": "Chen Xiaoli",
+    "email": "chen.xl@example.com",
+    "role": "PARENT",
+    "language": "zh"
+  }
+]
