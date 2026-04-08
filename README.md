@@ -2,7 +2,7 @@
 
 Hackathon prototype bridging teachers and parents at EduX Primary School via AI-powered dashboards, multilingual support, and curriculum-aligned chat.
 
-Built for the **CurricuLLM Hackathon** · Australian Curriculum v9.0 (ACARA)
+Built for the **EduX Oceania 2026 Hackthon** · Australian Curriculum v9.0 (ACARA)
 
 ---
 
