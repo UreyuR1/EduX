@@ -1,12 +1,12 @@
 # Year 6 Science — Term 2 Syllabus
 
 **Teacher:** Mr. James Nguyen
-**School:** Riverside Primary School
+**School:** EduX Primary School
 **Curriculum:** Australian Curriculum v9.0 — Science
 
 ---
 
-## Week 1–2: Earth's Place in Space — The Solar System
+## Week 1–2: Earth's Place in Space — The Solar System (AC9S6U02)
 
 ### Learning Outcomes
 - Describe the structure of the solar system and the relative positions of planets
@@ -25,7 +25,7 @@
 
 ---
 
-## Week 3–4: Day, Night, and Seasons
+## Week 3–4: Day, Night, and Seasons (AC9S6U02)
 
 ### Learning Outcomes
 - Explain how Earth's rotation causes day and night
@@ -44,7 +44,7 @@
 
 ---
 
-## Week 5–6: Earth's Place in Space — Moon Phases and Eclipses
+## Week 5–6: Earth's Place in Space — Moon Phases and Eclipses (AC9S6U02)
 
 ### Learning Outcomes
 - Describe the phases of the Moon and explain why they occur
@@ -64,7 +64,7 @@
 
 ---
 
-## Week 7–8: Biological Sciences — Living Things and Adaptations
+## Week 7–8: Biological Sciences — Living Things and Adaptations (AC9S6U01)
 
 ### Learning Outcomes
 - Describe structural, behavioural, and physiological adaptations of Australian animals
@@ -83,7 +83,7 @@
 
 ---
 
-## Week 9–10: Scientific Investigation and Reporting
+## Week 9–10: Scientific Investigation and Reporting (AC9S6I01)
 
 ### Learning Outcomes
 - Design a fair test with controlled, independent, and dependent variables

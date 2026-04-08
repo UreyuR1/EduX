@@ -1,12 +1,12 @@
 # Year 5 English — Term 2 Syllabus
 
 **Teacher:** Ms. Sarah Chen
-**School:** Riverside Primary School
+**School:** EduX Primary School
 **Curriculum:** Australian Curriculum v9.0 — English
 
 ---
 
-## Week 1–2: Narrative Writing — Story Structure
+## Week 1–2: Narrative Writing — Story Structure (AC9E5LE05)
 
 ### Learning Outcomes
 - Identify the elements of narrative structure: orientation, complication, climax, resolution
@@ -24,7 +24,7 @@
 
 ---
 
-## Week 3–4: Reading Comprehension — Inference and Prediction
+## Week 3–4: Reading Comprehension — Inference and Prediction (AC9E5LY03)
 
 ### Learning Outcomes
 - Make inferences based on textual evidence
@@ -43,7 +43,7 @@
 
 ---
 
-## Week 5–6: Persuasive Writing
+## Week 5–6: Persuasive Writing (AC9E5LY06)
 
 ### Learning Outcomes
 - Understand the purpose and structure of persuasive texts
@@ -63,7 +63,7 @@
 
 ---
 
-## Week 7–8: Grammar and Punctuation Focus
+## Week 7–8: Grammar and Punctuation Focus (AC9E5LA05)
 
 ### Learning Outcomes
 - Use complex sentences with subordinating conjunctions (because, although, when, if)
@@ -81,7 +81,7 @@
 
 ---
 
-## Week 9–10: Poetry and Creative Expression
+## Week 9–10: Poetry and Creative Expression (AC9E5LE02)
 
 ### Learning Outcomes
 - Explore different poetry forms: haiku, limerick, free verse, acrostic

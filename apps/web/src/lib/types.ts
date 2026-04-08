@@ -9,6 +9,8 @@ export interface Course {
   subject: string;
   syllabusCode?: string;
   syllabusPlain: string;
+  syllabusPlain_zh?: string;
+  syllabusPlain_hi?: string;
   currentWeek: number;
   totalWeeks: number;
   teacherId: string;
@@ -34,6 +36,7 @@ export interface WeeklyFocus {
   activity_hi?: string;
   source: "auto" | "teacher";
   courseId: string;
+  curriculumCode?: string;
 }
 
 export interface Feedback {

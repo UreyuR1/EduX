@@ -32,6 +32,10 @@ export function useChat({
   const messageCountRef = useRef(0);
   // Ref (not state) so greeting effects can read it synchronously in the same batch
   const restoredRef = useRef(false);
+  // Ref updated every render so the persist effect always has the current courseId
+  // WITHOUT being in its dependency array (prevents writing stale messages on course switch)
+  const courseIdRef = useRef<string | undefined>(courseId);
+  courseIdRef.current = courseId;
 
   // ── Load history from localStorage for a given user + course ─────────────
   const loadHistory = useCallback((userId: string, cId: string) => {
@@ -73,15 +77,19 @@ export function useChat({
   }, [courseId, loadHistory]);
 
   // ── Persist to localStorage whenever messages change ──────────────────────
+  // NOTE: courseId is intentionally read from courseIdRef (not from deps) so that
+  // switching courses does NOT trigger this effect with stale old messages.
   useEffect(() => {
-    if (!courseId || messages.length === 0) return;
+    const cId = courseIdRef.current;
+    if (!cId || messages.length === 0) return;
     try {
-      const key = storageKey(getCurrentUser().id, chatType, courseId);
+      const key = storageKey(getCurrentUser().id, chatType, cId);
       localStorage.setItem(key, JSON.stringify(messages.slice(-MAX_STORED)));
     } catch {
       // localStorage full — silently ignore
     }
-  }, [messages, courseId, chatType]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messages, chatType]);
 
   // ── Reset (e.g. when switching users or injecting proactive greeting) ──────
   const resetMessages = useCallback((initialMessages: ChatMessage[] = []) => {

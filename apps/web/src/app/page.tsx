@@ -17,7 +17,7 @@ export default function Home() {
     <div className="flex flex-1 items-center justify-center p-8">
       <div className="max-w-2xl w-full space-y-8">
         <div className="text-center space-y-2">
-          <h1 className="text-4xl font-bold tracking-tight">EduX</h1>
+          <h1 className="text-4xl font-bold tracking-tight">SyncEdu</h1>
           <p className="text-muted-foreground text-lg">
             Accessible &amp; Actionable Communication between Teachers and Parents
           </p>
@@ -52,7 +52,7 @@ export default function Home() {
                 Teacher Portal
               </CardTitle>
               <CardDescription>
-                View parent feedback, AI-generated insights, and communicate with parents
+                View parent feedback, data-driven insights, and communicate with parents
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -62,7 +62,7 @@ export default function Home() {
         </div>
 
         <p className="text-center text-sm text-muted-foreground">
-          Powered by CurricuLLM API · Riverside Primary School Demo
+          Powered by CurricuLLM API · EduX Primary School Demo
         </p>
       </div>
     </div>

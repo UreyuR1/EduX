@@ -1,12 +1,12 @@
 # Year 5 Mathematics — Term 2 Syllabus
 
 **Teacher:** Ms. Sarah Chen
-**School:** Riverside Primary School
+**School:** EduX Primary School
 **Curriculum:** Australian Curriculum v9.0 — Mathematics
 
 ---
 
-## Week 1–2: Place Value and Number Patterns
+## Week 1–2: Place Value and Number Patterns (AC9M5N01)
 
 ### Learning Outcomes
 - Understand place value of whole numbers up to millions
@@ -23,7 +23,7 @@
 
 ---
 
-## Week 3–4: Fractions — Concepts and Equivalence
+## Week 3–4: Fractions — Concepts and Equivalence (AC9M5N03)
 
 ### Learning Outcomes
 - Represent fractions on number lines and area models
@@ -41,7 +41,7 @@
 
 ---
 
-## Week 5–6: Fractions — Operations (Addition, Subtraction, Division)
+## Week 5–6: Fractions — Operations (AC9M5N04)
 
 ### Learning Outcomes
 - Add and subtract fractions with the same denominator
@@ -61,7 +61,7 @@
 
 ---
 
-## Week 7–8: Decimals and Percentages
+## Week 7–8: Decimals and Percentages (AC9M5N06)
 
 ### Learning Outcomes
 - Understand the relationship between fractions, decimals, and percentages
@@ -79,7 +79,7 @@
 
 ---
 
-## Week 9–10: Data and Statistics
+## Week 9–10: Data and Statistics (AC9M5ST01)
 
 ### Learning Outcomes
 - Collect, organise, and display data using tables and graphs

@@ -18,6 +18,21 @@ function loadSyllabus(filename: string): string {
   return fs.readFileSync(path.join(MOCK_DIR, "syllabus", filename), "utf-8");
 }
 
+function tryLoadSyllabus(filename: string): string | null {
+  try {
+    return fs.readFileSync(path.join(MOCK_DIR, "syllabus", filename), "utf-8");
+  } catch {
+    return null;
+  }
+}
+
+function processMarkdown(raw: string): string {
+  return raw
+    .replace(/^#+\s/gm, "")
+    .replace(/\*\*/g, "")
+    .replace(/---/g, "");
+}
+
 // Types matching the JSON structure
 interface RawCourse {
   id: string;
@@ -67,6 +82,7 @@ interface RawWeeklyFocus {
   activity_zh?: string;
   activity_hi?: string;
   source: string;
+  curriculumCode?: string;
 }
 
 interface RawFeedback {
@@ -116,11 +132,10 @@ export function getCourses() {
 
   return raw.map((c) => {
     const teacher = users.find((u) => u.id === c.teacherId);
-    const syllabusRaw = loadSyllabus(c.syllabusFile);
-    const syllabusPlain = syllabusRaw
-      .replace(/^#+\s/gm, "")
-      .replace(/\*\*/g, "")
-      .replace(/---/g, "");
+    const syllabusPlain = processMarkdown(loadSyllabus(c.syllabusFile));
+    const baseFile = c.syllabusFile.replace(/\.md$/, "");
+    const zhRaw = tryLoadSyllabus(`${baseFile}.zh.md`);
+    const hiRaw = tryLoadSyllabus(`${baseFile}.hi.md`);
 
     return {
       id: c.id,
@@ -133,6 +148,8 @@ export function getCourses() {
       teacherId: c.teacherId,
       teacherName: teacher?.name || "",
       syllabusPlain,
+      syllabusPlain_zh: zhRaw ? processMarkdown(zhRaw) : undefined,
+      syllabusPlain_hi: hiRaw ? processMarkdown(hiRaw) : undefined,
     };
   });
 }

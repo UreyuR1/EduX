@@ -35,11 +35,18 @@ export function WeeklyFocus({ focus, courseName, language = "en" }: WeeklyFocusP
             <span>🎯</span>
             {t("parent.weeklyFocus", language)}
           </CardTitle>
-          {focus.weekNumber > 0 && (
-            <Badge variant="outline" className="text-xs">
-              {weekLabel(focus.weekNumber, language)}
-            </Badge>
-          )}
+          <div className="flex items-center gap-1.5">
+            {focus.curriculumCode && (
+              <Badge variant="outline" className="text-xs font-mono text-muted-foreground">
+                {focus.curriculumCode}
+              </Badge>
+            )}
+            {focus.weekNumber > 0 && (
+              <Badge variant="outline" className="text-xs">
+                {weekLabel(focus.weekNumber, language)}
+              </Badge>
+            )}
+          </div>
         </div>
         <p className="text-sm text-muted-foreground">{courseName}</p>
       </CardHeader>

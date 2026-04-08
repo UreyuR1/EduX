@@ -55,7 +55,7 @@ export function Header({ showLanguageToggle, language = "en", onLanguageChange }
           className="font-bold text-lg tracking-tight cursor-pointer text-primary"
           onClick={() => router.push("/")}
         >
-          EduX
+          SyncEdu
         </span>
         <Badge variant="secondary" className="text-xs">
           {user.role === "TEACHER" ? t("nav.role.teacher", language) : t("nav.role.parent", language)}

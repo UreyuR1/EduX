@@ -68,12 +68,51 @@ const DEMO_HISTORIES: SeedEntry[] = [
     ],
   },
 
-  // ── parent-1 (Li Wei, zh) + course-2 (Year 5 English) — cleared ────────────
+  // ── parent-1 (Li Wei, zh) + course-2 (Year 5 English) ─────────────────────
   {
     userId: "parent-1",
     chatType: "parent",
     courseId: "course-2",
-    messages: [],
+    messages: [
+      {
+        id: "demo-p1-c2-1",
+        role: "user",
+        // 本周英语课学的是什么？
+        content: "\u672c\u5468\u82f1\u8bed\u8bfe\u5b66\u7684\u662f\u4ec0\u4e48\uff1f",
+      },
+      {
+        id: "demo-p1-c2-2",
+        role: "assistant",
+        // 本周 Year 5 English 的学习重点是**说服性写作**（第 6 周）。孩子们正在学习如何用有力的论据、情感性语言和证据来说服读者。本周的课堂作业是写一篇说服老师改变学校某条规定的文章。
+        content: "\u672c\u5468 Year 5 English \u7684\u5b66\u4e60\u91cd\u70b9\u662f**\u8bf4\u670d\u6027\u5199\u4f5c**\uff08\u7b2c 6 \u5468\uff09\u3002\u5b69\u5b50\u4eec\u6b63\u5728\u5b66\u4e60\u5982\u4f55\u7528\u6709\u529b\u7684\u8bba\u636e\u3001\u60c5\u611f\u6027\u8bed\u8a00\u548c\u8bc1\u636e\u6765\u8bf4\u670d\u8bfb\u8005\u3002\u672c\u5468\u7684\u8bfe\u5802\u4f5c\u4e1a\u662f\u5199\u4e00\u7bc7\u8bf4\u670d\u8001\u5e08\u6539\u53d8\u5b66\u6821\u67d0\u6761\u89c4\u5b9a\u7684\u6587\u7ae0\u3002",
+      },
+      {
+        id: "demo-p1-c2-3",
+        role: "user",
+        // 他写作文时总是想不出有力的论点，有什么方法可以帮他提高吗？
+        content: "\u4ed6\u5199\u4f5c\u6587\u65f6\u603b\u662f\u60f3\u4e0d\u51fa\u6709\u529b\u7684\u8bba\u70b9\uff0c\u6709\u4ec0\u4e48\u65b9\u6cd5\u53ef\u4ee5\u5e2e\u4ed6\u63d0\u9ad8\u5417\uff1f",
+      },
+      {
+        id: "demo-p1-c2-4",
+        role: "assistant",
+        // 这是很多同学的共同困惑！可以试试 PEEL 写作框架：
+        // Point（观点）→ Explain（解释）→ Evidence（举例）→ Link（总结）
+        // 比如让孩子选一个他真正在意的话题，从自己的立场出发，先说"我认为……因为……"，这样论点会更自然有力。在家可以做个小练习：让他说服你今晚吃什么，练习给出至少 3 个理由。
+        content: "\u8fd9\u662f\u5f88\u591a\u540c\u5b66\u7684\u5171\u540c\u56f0\u60d1\uff01\u53ef\u4ee5\u8bd5\u8bd5 PEEL \u5199\u4f5c\u6846\u67b6\uff1a\n\n**Point**\uff08\u89c2\u70b9\uff09\u2192 **Explain**\uff08\u89e3\u91ca\uff09\u2192 **Evidence**\uff08\u4e3e\u4f8b\uff09\u2192 **Link**\uff08\u603b\u7ed3\uff09\n\n\u6bd4\u5982\u8ba9\u5b69\u5b50\u9009\u4e00\u4e2a\u4ed6\u771f\u6b63\u5728\u610f\u7684\u8bdd\u9898\uff0c\u5148\u8bf4\u300c\u6211\u8ba4\u4e3a\u2026\u2026\u56e0\u4e3a\u2026\u2026\u300d\uff0c\u8bba\u70b9\u4f1a\u66f4\u81ea\u7136\u6709\u529b\u3002\n\n\u5728\u5bb6\u53ef\u4ee5\u505a\u4e2a\u5c0f\u7ec3\u4e60\uff1a\u8ba9\u4ed6\u8bf4\u670d\u4f60\u4eca\u665a\u5403\u4ec0\u4e48\uff0c\u7ec3\u4e60\u7ed9\u51fa\u81f3\u5c11 3 \u4e2a\u7406\u7531\u3002\u8fd9\u548c\u8001\u5e08\u5e03\u7f6e\u7684\u5bb6\u5e8f\u4f5c\u4e1a\u5185\u5bb9\u6b63\u597d\u5bf9\u5e94\uff01",
+      },
+      {
+        id: "demo-p1-c2-5",
+        role: "user",
+        // 谢谢！PEEL 框架听起来很实用，我们今晚就试试。
+        content: "\u8c22\u8c22\uff01PEEL \u6846\u67b6\u542c\u8d77\u6765\u5f88\u5b9e\u7528\uff0c\u6211\u4eec\u4eca\u665a\u5c31\u8bd5\u8bd5\u3002",
+      },
+      {
+        id: "demo-p1-c2-6",
+        role: "assistant",
+        // 太棒了！用生活中的例子练习写作思维是非常有效的方法。相信他很快就能写出有说服力的文章！祝学习顺利 🎉
+        content: "\u592a\u68d2\u4e86\uff01\u7528\u751f\u6d3b\u4e2d\u7684\u4f8b\u5b50\u7ec3\u4e60\u5199\u4f5c\u601d\u7ef4\u662f\u975e\u5e38\u6709\u6548\u7684\u65b9\u6cd5\u3002\u76f8\u4fe1\u4ed6\u5f88\u5feb\u5c31\u80fd\u5199\u51fa\u6709\u8bf4\u670d\u529b\u7684\u6587\u7ae0\uff01\u795d\u5b66\u4e60\u987a\u5229 \ud83c\udf89",
+      },
+    ],
   },
 
   // ── parent-2 (Emma Thompson, en) + course-1 (Year 5 Mathematics) ───────────
@@ -272,7 +311,7 @@ const DEMO_HISTORIES: SeedEntry[] = [
   },
 ];
 
-const DEMO_SEED_VERSION = "v2";
+const DEMO_SEED_VERSION = "v3";
 const DEMO_SEED_KEY = "edux-demo-seeded";
 
 /**

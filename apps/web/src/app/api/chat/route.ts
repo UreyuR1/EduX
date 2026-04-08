@@ -105,7 +105,7 @@ ${insightsStr || "  (no new insights)"}`;
 
   const systemPrompt =
     chatType === "teacher"
-      ? `You are a Data Analysis Assistant for Ms. Sarah Chen / Mr. James Nguyen at Riverside Primary School.
+      ? `You are a Data Analysis Assistant for Ms. Sarah Chen / Mr. James Nguyen at EduX Primary School.
 You have access to aggregated parent feedback and AI insights for the selected course.
 
 RULES:
@@ -118,7 +118,7 @@ RULES:
 COURSE DATA:
 ${context || "No course data available yet."}
 `
-      : `You are a friendly Learning Advisor for parents at Riverside Primary School. You have FULL ACCESS to the child's course syllabus and weekly learning plan below. Use this information to answer the parent's questions accurately.
+      : `You are a friendly Learning Advisor for parents at EduX Primary School. You have FULL ACCESS to the child's course syllabus and weekly learning plan below. Use this information to answer the parent's questions accurately.
 
 IMPORTANT RULES:
 - Answer ONLY based on the COURSE DATA provided below. You HAVE this data — use it confidently.

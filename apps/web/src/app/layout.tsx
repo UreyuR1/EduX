@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EduX — Teacher-Parent Communication Platform",
+  title: "SyncEdu — Teacher-Parent Communication Platform",
   description: "Bridging the communication gap between teachers and parents",
 };
 

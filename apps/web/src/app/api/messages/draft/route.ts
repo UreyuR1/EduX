@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const prompt = `You are a teacher at Riverside Primary School. Write a warm, professional message to parents about the following class insight.
+  const prompt = `You are a teacher at EduX Primary School. Write a warm, professional message to parents about the following class insight.
 
 Course: ${courseName}
 Data: ${insight.dataPoint}
