@@ -50,6 +50,7 @@ async function handleDirectLLM(
   chatType: string
 ) {
   const apiKey = process.env.LLM_API_KEY;
+  const provider = process.env.LLM_PROVIDER || "curricullm";
   const baseUrl = process.env.LLM_BASE_URL || "https://api.curricullm.com";
   const model = process.env.LLM_MODEL || "CurricuLLM-AU";
 
@@ -166,7 +167,8 @@ ${context || "No course data is currently available. Let the parent know you don
         messages,
         stream: true,
         // CurricuLLM-specific: curriculum context improves pedagogical alignment
-        ...(courseId ? (() => {
+        // Only sent when using the CurricuLLM provider; omitted for standard OpenAI-compatible APIs
+        ...(provider === "curricullm" && courseId ? (() => {
           const course = getCourses().find((c) => c.id === courseId);
           return course ? {
             curriculum: {
